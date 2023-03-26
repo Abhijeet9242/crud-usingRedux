@@ -1,4 +1,5 @@
-import ActionsEditOrDelete from "./ActionsEditOrDelete"
+import ActionsEditOrDelete from "./ActionsEditOrDelete";
+import Aldd from "./Aldd";
 
 export const COLUMNS = [
     {
@@ -16,7 +17,10 @@ export const COLUMNS = [
     {
         Header:"ACTIONS",
         Cell: (props) => (
+            <>
             <ActionsEditOrDelete props={props}/>
+            
+            </>
           )
     },
 ]

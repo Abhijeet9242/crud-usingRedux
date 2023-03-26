@@ -1,4 +1,4 @@
-import {ADD_USER, DELETE_USER, GET_USERS } from "./actionType"
+import {ADD_USER, DELETE_USER, GET_USERS, UPDATE_USER } from "./actionType"
 
 const initialState = {
     userData : []
@@ -14,6 +14,13 @@ export const userReducer = (state = initialState,action) => {
         };
         case ADD_USER:{
             return { ...state,userData:action.payload}
+        }
+        case UPDATE_USER:{
+            return {
+                ...state, userData: state.userData.map((user) =>
+                user.id === action.payload.id ? action.payload : user
+              ),
+            }
         }
         case DELETE_USER:{
            return{

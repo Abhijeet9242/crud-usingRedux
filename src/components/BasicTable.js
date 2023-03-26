@@ -79,6 +79,7 @@ export const BasicTable = () => {
      },[])
 
     const handleAddUser = (e)=>{
+        
         e.preventDefault()
         id = users.length+1
         const payload = {
@@ -124,7 +125,7 @@ const{getTableProps,getTableBodyProps,headerGroups,rows,prepareRow,footerGroups}
     
     <div className='tablediv'>
         <div className='searchdiv'>
-            <div><button className='btn' onClick={handleOpen}>ADD USER</button></div>
+            <div className='btndiv'><button className='btn' onClick={handleOpen}>ADD USER</button></div>
             <div className='search'>
                 <label>Search : </label>
                 <input type="text" />
