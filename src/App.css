@@ -19,7 +19,7 @@
 .footer{
   width: 100%;
   background-color: #000000;
-  height: 72px;
+  /* height: 100px; */
   display: flex;
   justify-content: center;
   color: #FFFFFF;
@@ -41,7 +41,7 @@ body{
 }
 
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 550px) {
   .homecenterdiv{
     height:100vh;
     width:100%;

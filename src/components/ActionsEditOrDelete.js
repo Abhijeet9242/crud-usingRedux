@@ -34,6 +34,7 @@ const StyledWrapper = styled.div`
   color:#FFFFFF;
   background-Color:#000000;
   padding:7px 0px;
+  margin-bottom:20px;
 `;
 const StyledTextField = styled(TextField)`
   margin-bottom: 10px;
@@ -47,6 +48,7 @@ const StyledButton = styled.button`
   margin:auto;
   color:#FFFFFF;
   margin-top:20px;
+  cursor:pointer;
 `;
 
 
@@ -109,8 +111,8 @@ const handleEditUser = (e) =>{
   return (
     <>
     <div>
-      <button onClick={()=>handleDelete(row)}><DeleteIcon /></button>
-      <button onClick={()=>handleOpen(row)} ><EditIcon /></button>
+      <button  className='act' onClick={()=>handleDelete(row)}><DeleteIcon /></button>
+      <button  className='act' onClick={()=>handleOpen(row)} ><EditIcon /></button>
 
 
       <Modal

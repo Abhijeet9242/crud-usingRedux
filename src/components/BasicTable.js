@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import "./BasicTable.css";
 import {COLUMNS} from "./columns";
-import {useTable} from "react-table";
+import {useTable,useSortBy,useGlobalFilter,usePagination} from "react-table";
 import { addUser, fetchUsers } from '../redux/Actions';
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -16,6 +16,7 @@ import  TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
+import GlobalFilter from './GlobalFilter';
 
 
 //modal styling
@@ -40,6 +41,7 @@ const style = {
     color:#FFFFFF;
     background-Color:#000000;
     padding:7px 0px;
+    margin-bottom:20px;
   `;
   const StyledTextField = styled(TextField)`
     margin-bottom: 10px;
@@ -73,6 +75,9 @@ export const BasicTable = () => {
     let id ;
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+
+
+   
 
     useEffect(()=>{
         dispatch(fetchUsers()) 
@@ -110,10 +115,14 @@ const columns = useMemo(()=>{
 const tableInstance = useTable({
     columns:columns,
     data:users
-})
+},useGlobalFilter,useSortBy,usePagination)
 
-const{getTableProps,getTableBodyProps,headerGroups,rows,prepareRow,footerGroups} = tableInstance
+const{getTableProps,getTableBodyProps,headerGroups,page,prepareRow,footerGroups,state,setGlobalFilter,nextPage,previousPage,canNextPage,canPreviousPage,pageOptions,setPageSize} = tableInstance
 
+
+const {globalFilter} = state
+const {pageIndex} = state
+const {pageSize} = state
 
 
 
@@ -128,7 +137,7 @@ const{getTableProps,getTableBodyProps,headerGroups,rows,prepareRow,footerGroups}
             <div className='btndiv'><button className='btn' onClick={handleOpen}>ADD USER</button></div>
             <div className='search'>
                 <label>Search : </label>
-                <input type="text" />
+                <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
             </div>
         </div>
     <table {...getTableProps()}>
@@ -138,7 +147,12 @@ const{getTableProps,getTableBodyProps,headerGroups,rows,prepareRow,footerGroups}
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {
                             headerGroup.headers.map((column)=>(
-                                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                    {column.render("Header")}
+                                    <span>
+                                        {column.isSorted ? (column.isSortedDesc ? ' ⬆️' : '⬇️') : ""}
+                                    </span>
+                                    </th>
                             ))
                         }
                        
@@ -149,7 +163,7 @@ const{getTableProps,getTableBodyProps,headerGroups,rows,prepareRow,footerGroups}
         </thead>
         <tbody {...getTableBodyProps()}>
             {
-                rows.map((row)=>{
+                page.map((row)=>{
                     prepareRow(row)
                     return (
                       <>
@@ -182,8 +196,24 @@ const{getTableProps,getTableBodyProps,headerGroups,rows,prepareRow,footerGroups}
     </table>
     <div className='paginationdiv'>
         <div className='pagination'>
-            <div>page 1 of 2</div>
-            <div>prev and next</div>
+            <div>
+                Page{" "}<strong>{pageIndex + 1} of {pageOptions.length}</strong>
+            </div>
+            <div>
+                <select className='opt' value={pageSize} onChange={(e)=>setPageSize(Number(e.target.value))}>
+                    {
+                        [5,10].map(pageSize => (
+                            <option key={pageSize} value={pageSize}>
+                                Show {pageSize}
+                            </option>
+                        ))
+                    }
+                </select>
+            </div>
+            <div className='pgdiv'>
+                <button onClick={()=>previousPage()} disabled={!canPreviousPage}>Prev</button>
+                <button onClick={()=>nextPage()} disabled={!canNextPage}>Next</button>
+            </div>
         </div>
         
     </div>
