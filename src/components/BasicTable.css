@@ -1,0 +1,87 @@
+
+/* for table responseness in media query remove margion:auto  */
+
+.tablediv{
+  width:70%;
+  margin: auto;               
+  padding: 30px 0px;
+}
+table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  table td, table th {
+    border: 1px solid #CED2CC;
+    padding: 8px;
+  }
+  
+  table tr:nth-child(even){background-color: #B2B2B2;}
+  /* table tr:nth-child(odd){background-color: #f2f2f2;} */
+  table tr:nth-child(odd){background-color: #F1F1F1;}
+  
+  table tr:hover {background-color: #CED2CC;}
+  
+  table th, tfoot td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #1A0000;
+    color: white;
+  }
+
+  
+
+
+  /* searchbar */
+  .searchdiv{
+    /* height: 50px; */
+    /* border: 1px solid black; */
+    /* margin: auto; */
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+  }
+  
+
+ .btn{
+    
+    background-color: #146C94;
+    padding: 10px 40px;
+    /* margin: auto; */
+    margin-top: 3px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  } 
+
+  .search{
+    /* width:30%; */
+    /* border:1px solid red; */
+    /* margin: auto; */
+    padding-top: 18px;
+  }
+  .search label{
+    color:#146C94;
+    font-weight: bold;
+  }
+
+/* pagination and add user */
+  .paginationdiv{
+    /* height: 50px; */
+    /* border: 1px solid black; */
+    margin: auto;
+  }
+
+  
+  .pagination{
+    /* border:1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 5px;
+  }
+  
